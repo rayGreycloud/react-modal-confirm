@@ -1,12 +1,11 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-var Modal = React.createClass({
+export class Modal extends Component() {
   displayName: 'Modal',
-  backdrop: function() {
+  backdrop() {
     return <div className='modal-backdrop in' />;
-  },
-
-  modal: function() {
+  }
+  modal() {
     var style = {display: 'block'};
     return (
       <div
@@ -26,7 +25,7 @@ var Modal = React.createClass({
     );
   },
 
-  render: function() {
+  render() {
     return (
       <div>
         {this.backdrop()}
@@ -34,31 +33,31 @@ var Modal = React.createClass({
       </div>
     );
   }
-});
+};
 
-var Confirm = React.createClass({
+export class Confirm extends Component {
   displayName: 'Confirm',
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       confirmLabel: 'OK',
       abortLabel: 'Cancel'
     };
   },
 
-  abort: function() {
+  abort() {
     return this.promise.reject();
   },
 
-  confirm: function() {
+  confirm() {
     return this.promise.resolve();
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     this.promise = new $.Deferred();
     return React.findDOMNode(this.refs.confirm).focus();
   },
 
-  render: function() {
+  render() {
     var modalBody;
     if (this.props.description) {
       modalBody = (
@@ -101,9 +100,9 @@ var Confirm = React.createClass({
       </Modal>
     );
   }
-});
+};
 
-var confirm = function(message, options) {
+export class confirm(message, options) {
   var cleanup, component, props, wrapper;
   if (options == null) {
     options = {};
